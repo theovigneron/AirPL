@@ -48,6 +48,15 @@ rapport_str = "\n".join(rapport)
 # Afficher l'introduction
 print(rapport_str)
 
+# Filtrer les données pour ne garder que les lignes avec des valeurs supérieures au seuil journalier
+df_depass_seuil_journalier = df[df['valeur'] > valeur_limite_journaliere]
+
+if not df_depass_seuil_journalier.empty:
+    print("\nCommunes ayant dépassé le seuil journalier :")
+    print(df_depass_seuil_journalier['nom_commune'].unique())
+else:
+    print("\nAucune commune n'a dépassé le seuil journalier.")
+    
 with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     print("\nPM10 maximal enregistré par commune :")
     print(df_max_pm10)
@@ -78,9 +87,13 @@ max_avg_pm10 = df_avg_pm10.groupby('nom_commune')['valeur'].max()
 # On garde que les lignes avec les émissions moyennes les plus élevées par commune
 df_max_avg_pm10 = df_avg_pm10[df_avg_pm10.groupby('nom_commune')['valeur'].transform(lambda x: x == x.max())]
 
-print("Heure avec les émissions moyennes les plus élevées par commune:")
+print("\nHeure avec les émissions moyennes les plus élevées par commune:")
 for index, row in df_max_avg_pm10.iterrows():
     commune = row['nom_commune']
     heure = row['heure']
     moyenne_emissions = row['valeur']
     print(f"Commune: {commune}, Heure: {heure}, Emission de PM10 en moyenne: {moyenne_emissions}")
+    
+    
+
+
