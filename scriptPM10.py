@@ -1,5 +1,6 @@
 import json
 import pandas as pd
+import requests
 
 # Seuils PM10
 objectif_qualite = 30
@@ -9,10 +10,16 @@ seuil_information_recommandation = 50
 seuil_alerte = 80
 
 # Charger les données depuis le fichier JSON
-with open('PM10_Horaire_OctobreMars.json', 'r') as file:
-    data = json.load(file)
+url = "https://data.airpl.org/api/v1/mesure/journaliere/?&code_configuration_de_mesure__code_point_de_prelevement__code_polluant=24&date_heure_tu__range=2022-5-30,2023-5-30&code_configuration_de_mesure__code_point_de_prelevement__code_station__code_commune__code_departement__in=44,49,53,72,85,&export=json"
 
-periode_results = data['results']
+response = requests.get(url)
+
+if response.status_code == 200:
+    json_data = response.json()
+else:
+    print("Une erreur s'est produite lors de la récupération du JSON :", response.status_code)
+
+periode_results = json_data['results']
 
 # Créer un DataFrame à partir des résultats filtrés
 df = pd.DataFrame(periode_results)
