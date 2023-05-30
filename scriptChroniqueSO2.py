@@ -39,13 +39,13 @@ def mergeJson():
     df_filtre = df[df["validite"] == True]
 
     # Enregistrer le DataFrame en fichier CSV
-    df_filtre.to_csv("SO2_Horaire_OctobreMars.csv", index=False)
+    df_filtre.to_csv("Semaine.csv", index=False)
 
 
 def analyse(): 
     global email_message
     # Charger le fichier CSV dans un DataFrame pandas
-    df = pd.read_csv("SO2_Horaire_OctobreMars.csv")
+    df = pd.read_csv("Semaine.csv")
     
     # Commune depassant l'objectif de qualité en moyenne annuelle
     moyennes_par_commune = df.groupby("nom_commune")["valeur"].mean()
