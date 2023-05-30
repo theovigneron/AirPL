@@ -47,7 +47,7 @@ with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     
 
 
-# Load data from JSON file
+# chargement des données depuis un fichier JSON
 with open('PM10_Horaire_OctobreMars.json', 'r') as file:
     data = json.load(file)
 
