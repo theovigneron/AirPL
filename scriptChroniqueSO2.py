@@ -145,7 +145,7 @@ def analyse():
     moyennes_par_commune = df_season.groupby("nom_commune")["valeur"].mean()
     commune_sup_Critique = moyennes_par_commune[moyennes_par_commune > nivCritique]
     if commune_sup_Critique.size == 0:
-        email_message += "Aucune commune ne depasse l'objectif de qualité de la pariode octobre mars\n"
+        email_message += "Aucune commune ne depasse le Niveau critique de la pariode octobre mars\n"
     else:
         email_message += "commune depassant l'objectif qualité :\n"
         for commune in commune_sup_Critique.index:
